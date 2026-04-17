@@ -12,9 +12,9 @@ export default async function DashboardPage() {
   const { name, email, image } = session.user;
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <nav className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-        <span className="font-semibold text-gray-900 text-lg">Pipelined</span>
+    <main className="min-h-screen bg-black">
+      <nav className="bg-zinc-900 border-b border-zinc-800 px-6 py-4 flex items-center justify-between">
+        <span className="font-semibold text-white text-lg">Pipelined</span>
         <div className="flex items-center gap-4">
           {image && (
             <Image
@@ -25,7 +25,7 @@ export default async function DashboardPage() {
               className="rounded-full"
             />
           )}
-          <span className="text-sm text-gray-600">{name ?? email}</span>
+          <span className="text-sm text-zinc-400">{name ?? email}</span>
           <form
             action={async () => {
               "use server";
@@ -34,7 +34,7 @@ export default async function DashboardPage() {
           >
             <button
               type="submit"
-              className="text-sm text-gray-500 hover:text-gray-800 transition-colors"
+              className="text-sm text-zinc-500 hover:text-white transition-colors"
             >
               Sign out
             </button>
@@ -44,15 +44,14 @@ export default async function DashboardPage() {
 
       <div className="max-w-5xl mx-auto px-6 py-12 space-y-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-white">
             Welcome back{name ? `, ${name.split(" ")[0]}` : ""}
           </h1>
-          <p className="text-gray-500 mt-1">
+          <p className="text-zinc-400 mt-1">
             Track your applications, score your resume, and prep for interviews.
           </p>
         </div>
 
-        {/* Placeholder stats row */}
         <div className="grid grid-cols-3 gap-4">
           {[
             { label: "Total Applied", value: "0" },
@@ -61,16 +60,16 @@ export default async function DashboardPage() {
           ].map((stat) => (
             <div
               key={stat.label}
-              className="bg-white rounded-xl border border-gray-200 p-6"
+              className="bg-zinc-900 rounded-xl border border-zinc-800 p-6"
             >
-              <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
-              <p className="text-sm text-gray-500 mt-1">{stat.label}</p>
+              <p className="text-3xl font-bold text-white">{stat.value}</p>
+              <p className="text-sm text-zinc-500 mt-1">{stat.label}</p>
             </div>
           ))}
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-200 p-12 flex flex-col items-center justify-center text-center">
-          <p className="text-gray-400 text-sm">
+        <div className="bg-zinc-900 rounded-xl border border-zinc-800 p-12 flex flex-col items-center justify-center text-center">
+          <p className="text-zinc-600 text-sm">
             No applications yet. Add one to get started.
           </p>
         </div>
