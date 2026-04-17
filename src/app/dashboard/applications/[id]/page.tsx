@@ -7,7 +7,6 @@ import Link from "next/link";
 const STATUS_LABELS: Record<string, string> = {
   BOOKMARKED: "Bookmarked",
   APPLIED: "Applied",
-  PHONE_SCREEN: "Phone Screen",
   INTERVIEW: "Interview",
   OFFER: "Offer",
   REJECTED: "Rejected",
@@ -16,7 +15,6 @@ const STATUS_LABELS: Record<string, string> = {
 const STATUS_COLORS: Record<string, string> = {
   BOOKMARKED: "bg-zinc-700 text-zinc-300",
   APPLIED: "bg-blue-900 text-blue-300",
-  PHONE_SCREEN: "bg-yellow-900 text-yellow-300",
   INTERVIEW: "bg-purple-900 text-purple-300",
   OFFER: "bg-emerald-900 text-emerald-300",
   REJECTED: "bg-red-900 text-red-300",

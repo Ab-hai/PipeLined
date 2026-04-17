@@ -3,10 +3,9 @@
 import { ApplicationStatus } from "@prisma/client";
 import Link from "next/link";
 
-const STATUS_LABELS: Record<ApplicationStatus, string> = {
+const STATUS_LABELS: Partial<Record<ApplicationStatus, string>> = {
   BOOKMARKED: "Bookmarked",
   APPLIED: "Applied",
-  PHONE_SCREEN: "Phone Screen",
   INTERVIEW: "Interview",
   OFFER: "Offer",
   REJECTED: "Rejected",

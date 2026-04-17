@@ -1,31 +1,25 @@
 import NextAuth from "next-auth";
-import GitHub from "next-auth/providers/github";
-import Google from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
+import { authConfig } from "@/auth.config";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...authConfig,
   adapter: PrismaAdapter(prisma),
   providers: [
-    GitHub({
-      clientId: process.env.GITHUB_ID!,
-      clientSecret: process.env.GITHUB_SECRET!,
-      allowDangerousEmailAccountLinking: true,
-    }),
-    Google({
-      clientId: process.env.GOOGLE_ID!,
-      clientSecret: process.env.GOOGLE_SECRET!,
-      allowDangerousEmailAccountLinking: true,
-    }),
+    ...authConfig.providers,
   ],
   callbacks: {
-    session({ session, user }) {
-      session.user.id = user.id;
+    ...authConfig.callbacks,
+    jwt({ token, user }) {
+      // On sign in, persist the user id into the token
+      if (user?.id) token.id = user.id;
+      return token;
+    },
+    session({ session, token }) {
+      // Pass the id from the token into the session
+      if (token?.id) session.user.id = token.id as string;
       return session;
     },
-  },
-  pages: {
-    signIn: "/",
-    error: "/",
   },
 });

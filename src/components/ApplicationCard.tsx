@@ -1,27 +1,10 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Application } from "@prisma/client";
-import { deleteApplication } from "@/app/actions/applications";
+import { ApplicationActions } from "@/components/ApplicationActions";
+import { StatusBadge } from "@/components/StatusBadge";
 
-const STATUS_COLORS: Record<string, string> = {
-  BOOKMARKED: "bg-zinc-700 text-zinc-300",
-  APPLIED: "bg-blue-900 text-blue-300",
-  PHONE_SCREEN: "bg-yellow-900 text-yellow-300",
-  INTERVIEW: "bg-purple-900 text-purple-300",
-  OFFER: "bg-emerald-900 text-emerald-300",
-  REJECTED: "bg-red-900 text-red-300",
-};
-
-const STATUS_LABELS: Record<string, string> = {
-  BOOKMARKED: "Bookmarked",
-  APPLIED: "Applied",
-  PHONE_SCREEN: "Phone Screen",
-  INTERVIEW: "Interview",
-  OFFER: "Offer",
-  REJECTED: "Rejected",
-};
 
 const AVATAR_COLORS = [
   "bg-violet-800",
@@ -41,31 +24,7 @@ export default function ApplicationCard({
 }: {
   application: Application;
 }) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setMenuOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  async function handleDelete(e: React.MouseEvent) {
-    e.stopPropagation();
-    setMenuOpen(false);
-    await deleteApplication(application.id);
-  }
-
-  function handleEdit(e: React.MouseEvent) {
-    e.stopPropagation();
-    setMenuOpen(false);
-    router.push(`/dashboard/applications/${application.id}/edit`);
-  }
 
   return (
     <li
@@ -91,51 +50,16 @@ export default function ApplicationCard({
               </p>
             </div>
 
-            {/* Right side: status + menu */}
+            {/* Right side: status dropdown + menu */}
             <div
               className="flex items-center gap-2 shrink-0"
               onClick={(e) => e.stopPropagation()}
             >
-              <span
-                className={`text-xs font-medium px-2.5 py-1 rounded-full hidden sm:inline-flex ${STATUS_COLORS[application.status]}`}
-              >
-                {STATUS_LABELS[application.status]}
-              </span>
-
-              <div className="relative" ref={menuRef}>
-                <button
-                  className="btn btn-square btn-ghost btn-sm text-zinc-500 hover:text-white"
-                  onClick={() => setMenuOpen((v) => !v)}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="size-5"
-                  >
-                    <circle cx="5" cy="12" r="2" />
-                    <circle cx="12" cy="12" r="2" />
-                    <circle cx="19" cy="12" r="2" />
-                  </svg>
-                </button>
-
-                {menuOpen && (
-                  <div className="absolute right-0 top-10 w-36 bg-zinc-900 border border-zinc-700 rounded-xl shadow-xl z-10 overflow-hidden">
-                    <button
-                      onClick={handleEdit}
-                      className="w-full text-left px-4 py-2.5 text-sm text-zinc-300 hover:bg-zinc-800 hover:text-white transition-colors"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={handleDelete}
-                      className="w-full text-left px-4 py-2.5 text-sm text-red-400 hover:bg-zinc-800 transition-colors"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                )}
+              <div className="hidden sm:block">
+                <StatusBadge id={application.id} status={application.status} />
               </div>
+
+              <ApplicationActions id={application.id} />
             </div>
           </div>
 
