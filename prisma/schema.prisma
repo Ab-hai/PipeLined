@@ -71,9 +71,10 @@ model Application {
   role       String
   jobUrl     String?
   status     ApplicationStatus @default(BOOKMARKED)
-  notes      String?           @db.Text
-  resumeUrl  String?
-  aiScore    Json?
+  notes          String?           @db.Text
+  resumeText     String?           @db.Text
+  jobDescription String?           @db.Text
+  aiScore        Json?
   createdAt  DateTime          @default(now())
   updatedAt  DateTime          @updatedAt
 

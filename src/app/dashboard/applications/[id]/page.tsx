@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { deleteApplication } from "@/app/actions/applications";
 import Link from "next/link";
+import AISection from "@/components/AISection";
 
 const STATUS_LABELS: Record<string, string> = {
   BOOKMARKED: "Bookmarked",
@@ -32,6 +33,7 @@ export default async function ApplicationDetailPage({
 
   const application = await prisma.application.findFirst({
     where: { id, userId: session.user.id },
+    include: { interviewQuestions: { orderBy: { createdAt: "asc" } } },
   });
 
   if (!application) redirect("/dashboard");
@@ -135,12 +137,8 @@ export default async function ApplicationDetailPage({
           </div>
         )}
 
-        {/* AI section placeholder */}
-        <div className="bg-zinc-900 rounded-xl border border-zinc-800 p-6 text-center">
-          <p className="text-zinc-600 text-sm">
-            AI features — resume scoring &amp; interview questions — coming soon.
-          </p>
-        </div>
+        {/* AI Section */}
+        <AISection application={application} />
       </div>
     </main>
   );
