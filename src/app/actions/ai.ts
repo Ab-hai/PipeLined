@@ -46,13 +46,22 @@ Return ONLY valid JSON in this exact format, no markdown, no explanation:
     model: GROQ_MODEL,
     messages: [{ role: "user", content: prompt }],
     temperature: 0.3,
+    max_tokens: 1024,
+    response_format: { type: "json_object" },
   });
 
   const text = completion.choices[0].message.content?.trim() ?? "";
 
   // Strip markdown code blocks if model wraps the response
   const cleaned = text.replace(/^```json\n?/, "").replace(/\n?```$/, "").trim();
-  const aiScore: AIScore = JSON.parse(cleaned);
+
+  let aiScore: AIScore;
+  try {
+    aiScore = JSON.parse(cleaned);
+  } catch {
+    console.error("Groq returned invalid JSON:", cleaned);
+    throw new Error("AI returned an invalid response. Please try again.");
+  }
 
   await prisma.application.update({
     where: { id: applicationId },

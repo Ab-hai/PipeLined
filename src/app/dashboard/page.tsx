@@ -37,9 +37,9 @@ export default async function DashboardPage() {
       : null;
 
   return (
-    <main className="min-h-screen bg-black">
-      <nav className="bg-zinc-900 border-b border-zinc-800 px-6 py-4 flex items-center justify-between">
-        <span className="font-semibold text-white text-lg">Pipelined</span>
+    <main className="min-h-screen bg-background">
+      <nav className="border-b border-foreground/10 sticky top-0 z-50 px-6 py-4 flex items-center justify-between bg-background/80 backdrop-blur-md">
+        <span className="font-semibold text-foreground text-lg">Pipelined</span>
         <div className="flex items-center gap-4">
           {image && (
             <Image
@@ -50,7 +50,7 @@ export default async function DashboardPage() {
               className="rounded-full"
             />
           )}
-          <span className="text-sm text-zinc-400">{name ?? email}</span>
+          <span className="text-sm text-foreground/60">{name ?? email}</span>
           <form
             action={async () => {
               "use server";
@@ -59,7 +59,7 @@ export default async function DashboardPage() {
           >
             <button
               type="submit"
-              className="text-sm text-zinc-500 hover:text-white transition-colors"
+              className="text-sm text-foreground/50 hover:text-foreground transition-colors"
             >
               Sign out
             </button>
@@ -71,16 +71,16 @@ export default async function DashboardPage() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-white">
+            <h1 className="text-2xl font-bold text-foreground">
               Welcome back{name ? `, ${name.split(" ")[0]}` : ""}
             </h1>
-            <p className="text-zinc-400 mt-1 text-sm">
+            <p className="text-foreground/50 mt-1 text-sm">
               Track your applications, score your resume, and prep for interviews.
             </p>
           </div>
           <Link
             href="/dashboard/applications/new"
-            className="bg-white text-black rounded-lg px-4 py-2 text-sm font-medium hover:bg-zinc-200 transition-colors"
+            className="bg-primary text-primary-foreground rounded-lg px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors"
           >
             + Add Application
           </Link>
@@ -95,36 +95,36 @@ export default async function DashboardPage() {
           ].map((stat) => (
             <div
               key={stat.label}
-              className="bg-zinc-900 rounded-xl border border-zinc-800 p-6"
+              className="bg-card rounded-xl border border-foreground/10 p-6 shadow-sm"
             >
-              <p className="text-3xl font-bold text-white">{stat.value}</p>
-              <p className="text-sm text-zinc-500 mt-1">{stat.label}</p>
+              <p className="text-3xl font-bold text-foreground">{stat.value}</p>
+              <p className="text-sm text-foreground/50 mt-1">{stat.label}</p>
             </div>
           ))}
         </div>
 
         {/* Applications list */}
         {applications.length === 0 ? (
-          <div className="bg-zinc-900 rounded-xl border border-zinc-800 p-16 flex flex-col items-center justify-center text-center space-y-4">
-            <div className="w-14 h-14 rounded-full bg-zinc-800 flex items-center justify-center text-2xl">
+          <div className="bg-card rounded-xl border border-foreground/10 p-16 flex flex-col items-center justify-center text-center space-y-4 shadow-sm">
+            <div className="w-14 h-14 rounded-full bg-background flex items-center justify-center text-2xl">
               📋
             </div>
             <div className="space-y-1">
-              <p className="text-white font-medium">No applications yet</p>
-              <p className="text-zinc-500 text-sm max-w-xs">
+              <p className="text-foreground font-medium">No applications yet</p>
+              <p className="text-foreground/50 text-sm max-w-xs">
                 Start tracking your job search. Add your first application to get AI resume scoring and interview prep.
               </p>
             </div>
             <Link
               href="/dashboard/applications/new"
-              className="mt-2 bg-white text-black text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-zinc-200 transition-colors"
+              className="mt-2 bg-primary text-primary-foreground text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-primary/90 transition-colors"
             >
               + Add your first application
             </Link>
           </div>
         ) : (
-          <ul className="list bg-zinc-900 rounded-xl border border-zinc-800 shadow-md">
-            <li className="p-4 pb-2 text-xs text-zinc-500 tracking-wide uppercase">
+          <ul className="list bg-card rounded-xl border border-foreground/10 shadow-sm">
+            <li className="p-4 pb-2 text-xs text-foreground/40 tracking-wide uppercase">
               {applications.length} application{applications.length !== 1 ? "s" : ""}
             </li>
             {applications.map((app) => (

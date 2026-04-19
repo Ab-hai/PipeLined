@@ -24,28 +24,28 @@ export default async function EditApplicationPage({
   const updateWithId = updateApplication.bind(null, id);
 
   return (
-    <main className="min-h-screen bg-black">
-      <nav className="bg-zinc-900 border-b border-zinc-800 px-6 py-4 flex items-center">
-        <span className="font-semibold text-white text-lg">Pipelined</span>
+    <main className="min-h-screen bg-background">
+      <nav className="border-b border-foreground/10 sticky top-0 z-50 px-6 py-4 flex items-center bg-background/80 backdrop-blur-md">
+        <span className="font-semibold text-foreground text-lg">Pipelined</span>
       </nav>
 
       <div className="max-w-2xl mx-auto px-6 py-12">
         <div className="mb-8 space-y-4">
           <Link
             href={`/dashboard/applications/${id}`}
-            className="inline-flex items-center gap-1.5 text-sm text-zinc-500 hover:text-white transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm text-foreground/50 hover:text-foreground transition-colors"
           >
             ← Back
           </Link>
           <div>
-            <h1 className="text-2xl font-bold text-white">Edit Application</h1>
-            <p className="text-zinc-400 mt-1 text-sm">
+            <h1 className="text-2xl font-bold text-foreground">Edit Application</h1>
+            <p className="text-foreground/50 mt-1 text-sm">
               {application.company} — {application.role}
             </p>
           </div>
         </div>
 
-        <div className="bg-zinc-900 rounded-xl border border-zinc-800 p-6">
+        <div className="bg-card rounded-xl border border-foreground/10 p-6 shadow-sm">
           <ApplicationForm
             action={updateWithId}
             defaultValues={{

@@ -15,8 +15,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-theme="black">
-      <body className={geist.className}>{children}</body>
+    <html lang="en" data-theme="light">
+      <body className={`${geist.className} bg-background text-foreground`}>
+        {children}
+      </body>
     </html>
   );
 }

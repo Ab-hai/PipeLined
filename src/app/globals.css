@@ -3,12 +3,33 @@
 @tailwind utilities;
 
 :root {
-  --background: #000000;
-  --foreground: #ededed;
+  --background: 245 244 243;       /* #f5f4f3 */
+  --foreground: 47 51 80;          /* #2f3350 */
+  --card: 255 255 255;             /* #ffffff */
+  --border: 47 51 80;              /* same as foreground, used with opacity */
+  --input: 245 244 243;            /* same as background */
+  --primary: 47 51 80;             /* #2f3350 */
+  --primary-foreground: 255 255 255;
+  --muted: 245 244 243;
+  --muted-foreground: 47 51 80;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(var(--foreground));
+  background: rgb(var(--background));
+}
+
+/* Override browser autofill styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: rgb(var(--foreground));
+  -webkit-box-shadow: 0 0 0px 1000px rgb(var(--input)) inset;
+  transition: background-color 5000s ease-in-out 0s;
 }

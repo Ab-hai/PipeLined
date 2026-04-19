@@ -13,11 +13,11 @@ import {
 import { updateApplicationStatus } from "@/app/actions/applications"
 
 const STATUS_STYLES: Record<string, string> = {
-  BOOKMARKED: "bg-zinc-700 text-zinc-300 hover:bg-zinc-600",
-  APPLIED:    "bg-blue-900 text-blue-300 hover:bg-blue-800",
-  INTERVIEW:  "bg-purple-900 text-purple-300 hover:bg-purple-800",
-  OFFER:      "bg-emerald-900 text-emerald-300 hover:bg-emerald-800",
-  REJECTED:   "bg-red-900 text-red-300 hover:bg-red-800",
+  BOOKMARKED: "bg-foreground/10 text-foreground/70 hover:bg-foreground/15",
+  APPLIED:    "bg-blue-100 text-blue-700 hover:bg-blue-200",
+  INTERVIEW:  "bg-purple-100 text-purple-700 hover:bg-purple-200",
+  OFFER:      "bg-emerald-100 text-emerald-700 hover:bg-emerald-200",
+  REJECTED:   "bg-red-100 text-red-600 hover:bg-red-200",
 }
 
 const STATUS_LABELS: Record<string, string> = {
@@ -45,17 +45,13 @@ export function StatusBadge({ id, status: initialStatus }: StatusBadgeProps) {
     <DropdownMenu>
       <DropdownMenuTrigger
         onClick={(e) => e.stopPropagation()}
-        className={`inline-flex items-center gap-1 text-xs font-medium px-2.5 py-1 rounded-full cursor-pointer transition-colors focus:outline-none focus:ring-1 focus:ring-zinc-500 ${STATUS_STYLES[status]}`}
+        className={`inline-flex items-center gap-1 text-xs font-medium px-2.5 py-1 rounded-full cursor-pointer transition-colors focus:outline-none ${STATUS_STYLES[status]}`}
       >
         {STATUS_LABELS[status]}
         <ChevronDownIcon className="size-3 opacity-70" />
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent
-        align="end"
-        className="w-36"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <DropdownMenuContent align="end" className="w-36" onClick={(e) => e.stopPropagation()}>
         <DropdownMenuGroup>
           {Object.entries(STATUS_LABELS).map(([value, label]) => (
             <DropdownMenuItem
