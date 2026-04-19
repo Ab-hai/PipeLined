@@ -1,25 +1,23 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Application, InterviewQuestion } from "@prisma/client";
-import { scoreResume, AIScore } from "@/app/actions/ai";
+import { scoreResume, saveJDAndResume, AIScore } from "@/app/actions/ai";
 
 interface AISectionProps {
   application: Application & { interviewQuestions: InterviewQuestion[] };
 }
 
 export default function AISection({ application }: AISectionProps) {
+  const router = useRouter();
   const [resumeText, setResumeText] = useState(application.resumeText ?? "");
   const [jobDescription, setJobDescription] = useState(application.jobDescription ?? "");
   const [aiScore, setAiScore] = useState<AIScore | null>(
     application.aiScore as AIScore | null
   );
-  const [questions, setQuestions] = useState<string[]>(
-    application.interviewQuestions.map((q) => q.question)
-  );
   const [scoring, setScoring] = useState(false);
-  const [generating, setGenerating] = useState(false);
-  const [streamedText, setStreamedText] = useState("");
+  const [navigating, setNavigating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   async function handleScore() {
@@ -37,50 +35,18 @@ export default function AISection({ application }: AISectionProps) {
     }
   }
 
-  async function handleGenerateQuestions() {
+  async function handleGoToInterview() {
     if (!jobDescription.trim()) return;
-    setGenerating(true);
-    setStreamedText("");
-    setQuestions([]);
+    setNavigating(true);
     setError(null);
-
     try {
-      const res = await fetch("/api/ai/stream-questions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          applicationId: application.id,
-          role: application.role,
-          jobDescription,
-        }),
-      });
-
-      if (!res.ok) throw new Error("Request failed");
-      if (!res.body) return;
-
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let full = "";
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        const chunk = decoder.decode(value);
-        full += chunk;
-        setStreamedText(full);
-      }
-
-      const parsed = full
-        .split("\n")
-        .map((l) => l.replace(/^\d+\.\s*/, "").trim())
-        .filter((l) => l.length > 0);
-      setQuestions(parsed);
-      setStreamedText("");
+      // Save JD (and resume if provided) so the interview page can use it
+      await saveJDAndResume(application.id, resumeText, jobDescription);
+      router.push(`/dashboard/applications/${application.id}/interview`);
     } catch (e) {
       console.error(e);
-      setError("Failed to generate questions. Please try again.");
-    } finally {
-      setGenerating(false);
+      setError("Something went wrong. Please try again.");
+      setNavigating(false);
     }
   }
 
@@ -141,11 +107,11 @@ export default function AISection({ application }: AISectionProps) {
             {scoring ? "Scoring..." : "Score Resume"}
           </button>
           <button
-            onClick={handleGenerateQuestions}
-            disabled={generating || !jobDescription.trim()}
+            onClick={handleGoToInterview}
+            disabled={navigating || !jobDescription.trim()}
             className="bg-card text-foreground text-sm font-medium px-4 py-2 rounded-lg border border-foreground/15 hover:bg-background transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            {generating ? "Generating..." : "Generate Interview Questions"}
+            {navigating ? "Opening..." : "Generate Interview Questions →"}
           </button>
         </div>
       </div>
@@ -190,28 +156,6 @@ export default function AISection({ application }: AISectionProps) {
               </ul>
             </div>
           </div>
-        </div>
-      )}
-
-      {/* Interview Questions */}
-      {(questions.length > 0 || streamedText) && (
-        <div className="bg-card rounded-xl border border-foreground/10 p-6 space-y-4 shadow-sm">
-          <h2 className="text-sm font-semibold text-foreground">Interview Questions</h2>
-          {streamedText ? (
-            <pre className="text-sm text-foreground whitespace-pre-wrap font-sans leading-relaxed">
-              {streamedText}
-              <span className="animate-pulse">▌</span>
-            </pre>
-          ) : (
-            <ol className="space-y-3">
-              {questions.map((q, i) => (
-                <li key={i} className="flex gap-3 text-sm text-foreground">
-                  <span className="text-foreground/30 shrink-0 font-mono">{i + 1}.</span>
-                  {q}
-                </li>
-              ))}
-            </ol>
-          )}
         </div>
       )}
     </div>
