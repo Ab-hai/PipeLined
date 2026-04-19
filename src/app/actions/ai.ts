@@ -56,7 +56,7 @@ Return ONLY valid JSON in this exact format, no markdown, no explanation:
 
   await prisma.application.update({
     where: { id: applicationId },
-    data: { aiScore },
+    data: { aiScore: aiScore as object },
   });
 
   revalidatePath(`/dashboard/applications/${applicationId}`);

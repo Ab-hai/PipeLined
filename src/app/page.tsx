@@ -25,7 +25,7 @@ export default async function LandingPage() {
           <ul className="text-left space-y-3 text-sm text-zinc-400">
             <li className="flex items-start gap-2">
               <span className="text-emerald-500 mt-0.5">✓</span>
-              Kanban-style pipeline: Bookmarked → Offer
+              Track applications from Bookmarked → Offer
             </li>
             <li className="flex items-start gap-2">
               <span className="text-emerald-500 mt-0.5">✓</span>
