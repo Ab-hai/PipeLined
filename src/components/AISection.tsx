@@ -21,15 +21,18 @@ export default function AISection({ application }: AISectionProps) {
   const [scoring, setScoring] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [streamedText, setStreamedText] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
   async function handleScore() {
     if (!resumeText.trim() || !jobDescription.trim()) return;
     setScoring(true);
+    setError(null);
     try {
       const result = await scoreResume(application.id, resumeText, jobDescription);
       setAiScore(result);
     } catch (e) {
       console.error(e);
+      setError("Failed to score resume. Please try again.");
     } finally {
       setScoring(false);
     }
@@ -40,6 +43,7 @@ export default function AISection({ application }: AISectionProps) {
     setGenerating(true);
     setStreamedText("");
     setQuestions([]);
+    setError(null);
 
     try {
       const res = await fetch("/api/ai/stream-questions", {
@@ -52,7 +56,9 @@ export default function AISection({ application }: AISectionProps) {
         }),
       });
 
+      if (!res.ok) throw new Error("Request failed");
       if (!res.body) return;
+
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
       let full = "";
@@ -74,6 +80,7 @@ export default function AISection({ application }: AISectionProps) {
       setStreamedText("");
     } catch (e) {
       console.error(e);
+      setError("Failed to generate questions. Please try again.");
     } finally {
       setGenerating(false);
     }
@@ -119,6 +126,13 @@ export default function AISection({ application }: AISectionProps) {
             className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors resize-none"
           />
         </div>
+
+        {error && (
+          <div className="flex items-center gap-2 bg-red-950 border border-red-900 text-red-400 text-sm px-4 py-3 rounded-lg">
+            <span>✗</span>
+            {error}
+          </div>
+        )}
 
         <div className="flex gap-3">
           <button

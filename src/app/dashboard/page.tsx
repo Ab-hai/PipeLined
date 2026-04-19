@@ -105,13 +105,21 @@ export default async function DashboardPage() {
 
         {/* Applications list */}
         {applications.length === 0 ? (
-          <div className="bg-zinc-900 rounded-xl border border-zinc-800 p-16 flex flex-col items-center justify-center text-center">
-            <p className="text-zinc-500 text-sm">No applications yet.</p>
+          <div className="bg-zinc-900 rounded-xl border border-zinc-800 p-16 flex flex-col items-center justify-center text-center space-y-4">
+            <div className="w-14 h-14 rounded-full bg-zinc-800 flex items-center justify-center text-2xl">
+              📋
+            </div>
+            <div className="space-y-1">
+              <p className="text-white font-medium">No applications yet</p>
+              <p className="text-zinc-500 text-sm max-w-xs">
+                Start tracking your job search. Add your first application to get AI resume scoring and interview prep.
+              </p>
+            </div>
             <Link
               href="/dashboard/applications/new"
-              className="mt-4 text-sm text-white underline underline-offset-4 hover:text-zinc-300 transition-colors"
+              className="mt-2 bg-white text-black text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-zinc-200 transition-colors"
             >
-              Add your first one
+              + Add your first application
             </Link>
           </div>
         ) : (
