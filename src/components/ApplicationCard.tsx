@@ -38,7 +38,15 @@ export default function ApplicationCard({
               {application.role}
             </p>
             {application.jobUrl && (
-              <ExternalLink className="size-3 text-foreground/30 shrink-0" />
+              <a
+                href={application.jobUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="text-foreground/30 hover:text-foreground/70 transition-colors shrink-0"
+              >
+                <ExternalLink className="size-3" />
+              </a>
             )}
           </div>
           <p className="text-xs text-foreground/40 mt-0.5">{application.company}</p>

@@ -18,7 +18,7 @@ export default async function DashboardPage() {
   });
 
   const totalApplied = applications.filter((a) =>
-    ["APPLIED", "PHONE_SCREEN", "INTERVIEW", "OFFER"].includes(a.status)
+    ["APPLIED", "INTERVIEW", "OFFER"].includes(a.status)
   ).length;
 
   const interviewCount = applications.filter(
@@ -46,7 +46,7 @@ export default async function DashboardPage() {
   return (
     <main className="min-h-screen">
       <nav className="border-b border-foreground/[0.08] sticky top-0 z-50 px-6 py-4 flex items-center justify-between bg-background/70 backdrop-blur-md">
-        <span className="font-semibold text-foreground text-lg">Pipelined</span>
+        <Link href="/dashboard" className="font-bold text-foreground text-2xl tracking-tight hover:opacity-80 transition-opacity">Pipelined</Link>
 
         <div className="flex items-center gap-3">
           {/* User pill */}

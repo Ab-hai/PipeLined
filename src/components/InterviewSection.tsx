@@ -20,7 +20,6 @@ export default function InterviewSection({
   const [generating, setGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Auto-start if no questions exist yet
   useEffect(() => {
     if (initialQuestions.length === 0) {
       handleGenerate();
@@ -72,21 +71,20 @@ export default function InterviewSection({
 
   return (
     <div className="space-y-4">
-      {/* Questions card */}
-      <div className="bg-card rounded-xl border border-foreground/10 p-6 shadow-sm space-y-4">
+      <div className="bg-white/[0.03] rounded-xl border border-white/[0.08] p-6 space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-sm font-semibold text-foreground">Interview Questions</h2>
           <button
             onClick={handleGenerate}
             disabled={generating}
-            className="text-xs bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 dark:bg-emerald-950 dark:hover:bg-emerald-900 dark:text-emerald-400 dark:border-emerald-900 px-3 py-1.5 rounded-lg transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            className="text-xs bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 px-3 py-1.5 rounded-lg transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {generating ? "Generating..." : "↺ Regenerate"}
           </button>
         </div>
 
         {error && (
-          <div className="flex items-center gap-2 bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-lg">
+          <div className="flex items-center gap-2 bg-red-500/10 border border-red-500/20 text-red-400 text-sm px-4 py-3 rounded-lg">
             <span>✗</span>
             {error}
           </div>
@@ -94,19 +92,19 @@ export default function InterviewSection({
 
         {/* Streaming state */}
         {streamedText && (
-          <pre className="text-sm text-foreground whitespace-pre-wrap font-sans leading-relaxed">
+          <pre className="text-sm text-foreground/80 whitespace-pre-wrap font-sans leading-relaxed">
             {streamedText}
             <span className="animate-pulse">▌</span>
           </pre>
         )}
 
-        {/* Loading skeleton while waiting for first chunk */}
+        {/* Loading skeleton */}
         {generating && !streamedText && (
           <div className="space-y-3">
             {[...Array(6)].map((_, i) => (
               <div key={i} className="flex gap-3 items-start">
-                <div className="w-4 h-4 rounded bg-foreground/10 animate-pulse shrink-0 mt-0.5" />
-                <div className="flex-1 h-4 rounded bg-foreground/10 animate-pulse" style={{ width: `${70 + (i % 3) * 10}%` }} />
+                <div className="w-4 h-4 rounded bg-white/10 animate-pulse shrink-0 mt-0.5" />
+                <div className="flex-1 h-4 rounded bg-white/10 animate-pulse" style={{ width: `${70 + (i % 3) * 10}%` }} />
               </div>
             ))}
           </div>
@@ -116,8 +114,8 @@ export default function InterviewSection({
         {!generating && questions.length > 0 && (
           <ol className="space-y-4">
             {questions.map((q, i) => (
-              <li key={i} className="flex gap-3 text-sm text-foreground">
-                <span className="text-foreground/30 shrink-0 font-mono w-5">{i + 1}.</span>
+              <li key={i} className="flex gap-3 text-sm text-foreground/80">
+                <span className="text-foreground/25 shrink-0 font-mono w-5">{i + 1}.</span>
                 <span className="leading-relaxed">{q}</span>
               </li>
             ))}
