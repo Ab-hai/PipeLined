@@ -13,11 +13,11 @@ import {
 import { updateApplicationStatus } from "@/app/actions/applications"
 
 const STATUS_STYLES: Record<string, string> = {
-  BOOKMARKED: "bg-foreground/10 text-foreground/70 hover:bg-foreground/15",
-  APPLIED:    "bg-blue-100 text-blue-700 hover:bg-blue-200",
-  INTERVIEW:  "bg-purple-100 text-purple-700 hover:bg-purple-200",
-  OFFER:      "bg-emerald-100 text-emerald-700 hover:bg-emerald-200",
-  REJECTED:   "bg-red-100 text-red-600 hover:bg-red-200",
+  BOOKMARKED: "bg-foreground/10 text-foreground/60 hover:bg-foreground/15",
+  APPLIED:    "bg-blue-500/15 text-blue-400 hover:bg-blue-500/25",
+  INTERVIEW:  "bg-purple-500/15 text-purple-400 hover:bg-purple-500/25",
+  OFFER:      "bg-emerald-500/15 text-emerald-400 hover:bg-emerald-500/25",
+  REJECTED:   "bg-red-500/15 text-red-400 hover:bg-red-500/25",
 }
 
 const STATUS_LABELS: Record<string, string> = {

@@ -4,7 +4,6 @@ import { prisma } from "@/lib/prisma";
 import { deleteApplication } from "@/app/actions/applications";
 import Link from "next/link";
 import AISection from "@/components/AISection";
-import ThemeToggle from "@/components/ui/theme-toggle";
 
 const STATUS_LABELS: Record<string, string> = {
   BOOKMARKED: "Bookmarked",
@@ -15,11 +14,11 @@ const STATUS_LABELS: Record<string, string> = {
 };
 
 const STATUS_COLORS: Record<string, string> = {
-  BOOKMARKED: "bg-foreground/10 text-foreground/70",
-  APPLIED: "bg-blue-100 text-blue-700",
-  INTERVIEW: "bg-purple-100 text-purple-700",
-  OFFER: "bg-emerald-100 text-emerald-700",
-  REJECTED: "bg-red-100 text-red-600",
+  BOOKMARKED: "bg-foreground/10 text-foreground/60",
+  APPLIED:    "bg-blue-500/15 text-blue-400",
+  INTERVIEW:  "bg-purple-500/15 text-purple-400",
+  OFFER:      "bg-emerald-500/15 text-emerald-400",
+  REJECTED:   "bg-red-500/15 text-red-400",
 };
 
 export default async function ApplicationDetailPage({
@@ -42,10 +41,9 @@ export default async function ApplicationDetailPage({
   const deleteWithId = deleteApplication.bind(null, id);
 
   return (
-    <main className="min-h-screen bg-background">
-      <nav className="border-b border-foreground/10 sticky top-0 z-50 px-6 py-4 flex items-center justify-between bg-background/80 backdrop-blur-md">
+    <main className="min-h-screen">
+      <nav className="border-b border-foreground/10 sticky top-0 z-50 px-6 py-4 flex items-center justify-between bg-black/70 backdrop-blur-md">
         <span className="font-semibold text-foreground text-lg">Pipelined</span>
-        <ThemeToggle />
       </nav>
 
       <div className="max-w-3xl mx-auto px-6 py-12 space-y-6">
@@ -76,14 +74,14 @@ export default async function ApplicationDetailPage({
             <div className="flex items-center gap-2 shrink-0">
               <Link
                 href={`/dashboard/applications/${id}/edit`}
-                className="text-sm bg-card hover:bg-background text-foreground px-4 py-2 rounded-lg transition-colors border border-foreground/15"
+                className="text-sm bg-white/5 hover:bg-white/10 text-foreground px-4 py-2 rounded-lg transition-colors border border-white/10"
               >
                 Edit
               </Link>
               <form action={deleteWithId}>
                 <button
                   type="submit"
-                  className="text-sm bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 dark:bg-red-950 dark:hover:bg-red-900 dark:text-red-400 dark:border-red-900 px-4 py-2 rounded-lg transition-colors"
+                  className="text-sm bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 px-4 py-2 rounded-lg transition-colors"
                 >
                   Delete
                 </button>
@@ -93,7 +91,7 @@ export default async function ApplicationDetailPage({
         </div>
 
         {/* Details */}
-        <div className="bg-card rounded-xl border border-foreground/10 divide-y divide-foreground/10 shadow-sm">
+        <div className="bg-white/[0.03] rounded-xl border border-white/[0.08] divide-y divide-white/[0.06]">
           {application.jobUrl && (
             <div className="px-6 py-4 flex items-center justify-between">
               <span className="text-sm text-foreground/50">Job URL</span>
@@ -101,7 +99,7 @@ export default async function ApplicationDetailPage({
                 href={application.jobUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-blue-600 hover:text-blue-500 transition-colors truncate max-w-xs"
+                className="text-sm text-blue-400 hover:text-blue-300 transition-colors truncate max-w-xs"
               >
                 {application.jobUrl}
               </a>
@@ -131,8 +129,8 @@ export default async function ApplicationDetailPage({
 
         {/* Notes */}
         {application.notes && (
-          <div className="bg-card rounded-xl border border-foreground/10 p-6 shadow-sm">
-            <h2 className="text-sm font-medium text-foreground/50 mb-3">Notes</h2>
+          <div className="bg-white/[0.03] rounded-xl border border-white/[0.08] p-6">
+            <h2 className="text-sm font-medium text-foreground/40 mb-3">Notes</h2>
             <p className="text-sm text-foreground whitespace-pre-wrap">
               {application.notes}
             </p>

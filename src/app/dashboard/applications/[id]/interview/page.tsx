@@ -3,7 +3,6 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import InterviewSection from "@/components/InterviewSection";
-import ThemeToggle from "@/components/ui/theme-toggle";
 
 export default async function InterviewPage({
   params,
@@ -24,10 +23,9 @@ export default async function InterviewPage({
   if (!application.jobDescription) redirect(`/dashboard/applications/${id}`);
 
   return (
-    <main className="min-h-screen bg-background">
-      <nav className="border-b border-foreground/10 sticky top-0 z-50 px-6 py-4 flex items-center justify-between bg-background/80 backdrop-blur-md">
+    <main className="min-h-screen">
+      <nav className="border-b border-foreground/10 sticky top-0 z-50 px-6 py-4 flex items-center justify-between bg-black/70 backdrop-blur-md">
         <span className="font-semibold text-foreground text-lg">Pipelined</span>
-        <ThemeToggle />
       </nav>
 
       <div className="max-w-2xl mx-auto px-6 py-12 space-y-6">

@@ -4,7 +4,6 @@ import { prisma } from "@/lib/prisma";
 import { updateApplication } from "@/app/actions/applications";
 import ApplicationForm from "@/components/ApplicationForm";
 import Link from "next/link";
-import ThemeToggle from "@/components/ui/theme-toggle";
 
 export default async function EditApplicationPage({
   params,
@@ -25,10 +24,9 @@ export default async function EditApplicationPage({
   const updateWithId = updateApplication.bind(null, id);
 
   return (
-    <main className="min-h-screen bg-background">
-      <nav className="border-b border-foreground/10 sticky top-0 z-50 px-6 py-4 flex items-center justify-between bg-background/80 backdrop-blur-md">
+    <main className="min-h-screen">
+      <nav className="border-b border-foreground/10 sticky top-0 z-50 px-6 py-4 flex items-center justify-between bg-black/70 backdrop-blur-md">
         <span className="font-semibold text-foreground text-lg">Pipelined</span>
-        <ThemeToggle />
       </nav>
 
       <div className="max-w-2xl mx-auto px-6 py-12">
@@ -47,7 +45,7 @@ export default async function EditApplicationPage({
           </div>
         </div>
 
-        <div className="bg-card rounded-xl border border-foreground/10 p-6 shadow-sm">
+        <div className="bg-white/[0.03] rounded-xl border border-white/[0.08] p-6">
           <ApplicationForm
             action={updateWithId}
             defaultValues={{
