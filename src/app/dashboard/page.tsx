@@ -104,17 +104,17 @@ export default async function DashboardPage() {
         </div>
 
         {/* Stat cards */}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-3">
           {stats.map(({ label, value, icon: Icon }) => (
             <div
               key={label}
-              className="bg-white/[0.03] rounded-xl border border-white/[0.08] p-6 flex items-start justify-between"
+              className="bg-white/[0.03] rounded-xl border border-white/[0.08] p-4 sm:p-6 flex items-start justify-between gap-2 overflow-hidden"
             >
-              <div>
-                <p className="text-sm text-foreground/40 mb-3">{label}</p>
-                <p className="text-3xl font-bold text-foreground">{value}</p>
+              <div className="min-w-0">
+                <p className="text-xs sm:text-sm text-foreground/40 mb-2 sm:mb-3 leading-tight">{label}</p>
+                <p className="text-2xl sm:text-3xl font-bold text-foreground">{value}</p>
               </div>
-              <div className="size-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
+              <div className="hidden sm:flex size-9 rounded-lg bg-white/5 border border-white/10 items-center justify-center shrink-0">
                 <Icon className="size-4 text-foreground/40" />
               </div>
             </div>
