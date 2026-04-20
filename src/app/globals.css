@@ -19,6 +19,18 @@ body {
   background: rgb(var(--background));
 }
 
+[data-theme="dark"] {
+  --background: 15 17 23;
+  --foreground: 232 230 227;
+  --card: 24 27 35;
+  --border: 232 230 227;
+  --input: 24 27 35;
+  --primary: 232 230 227;
+  --primary-foreground: 15 17 23;
+  --muted: 24 27 35;
+  --muted-foreground: 232 230 227;
+}
+
 /* Override browser autofill styles */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,

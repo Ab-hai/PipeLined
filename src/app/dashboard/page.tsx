@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import Image from "next/image";
 import Link from "next/link";
 import ApplicationCard from "@/components/ApplicationCard";
+import ThemeToggle from "@/components/ui/theme-toggle";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -41,6 +42,7 @@ export default async function DashboardPage() {
       <nav className="border-b border-foreground/10 sticky top-0 z-50 px-6 py-4 flex items-center justify-between bg-background/80 backdrop-blur-md">
         <span className="font-semibold text-foreground text-lg">Pipelined</span>
         <div className="flex items-center gap-4">
+          <ThemeToggle />
           {image && (
             <Image
               src={image}

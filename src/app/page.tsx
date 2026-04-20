@@ -1,6 +1,7 @@
 import { auth, signIn } from "@/auth";
 import { redirect } from "next/navigation";
 import { FaGithub, FaGoogle } from "react-icons/fa";
+import ThemeToggle from "@/components/ui/theme-toggle";
 
 export default async function LandingPage() {
   const session = await auth();
@@ -10,7 +11,10 @@ export default async function LandingPage() {
   }
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-4 bg-background">
+    <main className="min-h-screen flex flex-col items-center justify-center px-4 bg-background relative">
+      <div className="absolute top-4 right-6">
+        <ThemeToggle />
+      </div>
       <div className="max-w-md w-full text-center space-y-8">
         <div className="space-y-3">
           <h1 className="text-4xl font-bold text-foreground tracking-tight">

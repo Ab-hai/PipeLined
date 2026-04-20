@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation"
 import { MoreHorizontalIcon, PencilIcon, Trash2Icon } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,14 +26,13 @@ export function ApplicationActions({ id }: ApplicationActionsProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
+        <button
           aria-label="More options"
           onClick={(e) => e.stopPropagation()}
+          className="size-8 flex items-center justify-center rounded-lg text-foreground/50 hover:text-foreground hover:bg-foreground/5 transition-colors focus:outline-none"
         >
           <MoreHorizontalIcon className="size-4" />
-        </Button>
+        </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-36">
         <DropdownMenuGroup>
@@ -48,7 +46,7 @@ export function ApplicationActions({ id }: ApplicationActionsProps) {
             Edit
           </DropdownMenuItem>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator className="bg-zinc-800" />
+        <DropdownMenuSeparator className="bg-foreground/10" />
         <DropdownMenuGroup>
           <DropdownMenuItem
             variant="destructive"

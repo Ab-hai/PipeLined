@@ -2,7 +2,6 @@ import type { NextAuthConfig } from "next-auth";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 
-// Lightweight config used ONLY in middleware (Edge-compatible, no Prisma)
 export const authConfig: NextAuthConfig = {
   session: { strategy: "jwt" },
   providers: [
@@ -20,9 +19,10 @@ export const authConfig: NextAuthConfig = {
     error: "/",
   },
   callbacks: {
-    authorized({ auth }) {
-      // Only allow access if there's a valid session
-      return !!auth?.user;
+    authorized({ auth, request }) {
+      if (auth?.user) return true;
+      const signInUrl = new URL("/", request.url);
+      return Response.redirect(signInUrl);
     },
   },
 };

@@ -79,7 +79,7 @@ export default function InterviewSection({
           <button
             onClick={handleGenerate}
             disabled={generating}
-            className="text-xs bg-background border border-foreground/15 text-foreground/70 hover:text-foreground px-3 py-1.5 rounded-lg transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            className="text-xs bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 dark:bg-emerald-950 dark:hover:bg-emerald-900 dark:text-emerald-400 dark:border-emerald-900 px-3 py-1.5 rounded-lg transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {generating ? "Generating..." : "↺ Regenerate"}
           </button>

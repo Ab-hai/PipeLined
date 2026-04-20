@@ -19,6 +19,10 @@ ROLE: ${role}
 JOB DESCRIPTION:
 ${jobDescription}
 
+Each time you are asked, generate a FRESH and DIFFERENT set of questions. Focus on different aspects, skills, or scenarios each time — vary between behavioral, technical, situational, and role-specific questions.
+
+Variation seed: ${Math.random()}
+
 Format your response as a numbered list like this:
 1. Question one
 2. Question two
@@ -32,7 +36,7 @@ Only output the numbered list, nothing else.`;
   const stream = await groq.chat.completions.create({
     model: GROQ_MODEL,
     messages: [{ role: "user", content: prompt }],
-    temperature: 0.7,
+    temperature: 0.9,
     stream: true,
   });
 

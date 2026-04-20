@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { deleteApplication } from "@/app/actions/applications";
 import Link from "next/link";
 import AISection from "@/components/AISection";
+import ThemeToggle from "@/components/ui/theme-toggle";
 
 const STATUS_LABELS: Record<string, string> = {
   BOOKMARKED: "Bookmarked",
@@ -42,8 +43,9 @@ export default async function ApplicationDetailPage({
 
   return (
     <main className="min-h-screen bg-background">
-      <nav className="border-b border-foreground/10 sticky top-0 z-50 px-6 py-4 flex items-center bg-background/80 backdrop-blur-md">
+      <nav className="border-b border-foreground/10 sticky top-0 z-50 px-6 py-4 flex items-center justify-between bg-background/80 backdrop-blur-md">
         <span className="font-semibold text-foreground text-lg">Pipelined</span>
+        <ThemeToggle />
       </nav>
 
       <div className="max-w-3xl mx-auto px-6 py-12 space-y-6">
@@ -81,7 +83,7 @@ export default async function ApplicationDetailPage({
               <form action={deleteWithId}>
                 <button
                   type="submit"
-                  className="text-sm bg-red-50 hover:bg-red-100 text-red-600 px-4 py-2 rounded-lg transition-colors border border-red-200"
+                  className="text-sm bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 dark:bg-red-950 dark:hover:bg-red-900 dark:text-red-400 dark:border-red-900 px-4 py-2 rounded-lg transition-colors"
                 >
                   Delete
                 </button>

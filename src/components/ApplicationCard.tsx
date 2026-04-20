@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { Application } from "@prisma/client";
 import { ApplicationActions } from "@/components/ApplicationActions";
-import { StatusBadge } from "@/components/StatusBadge";
+import { StatusBadge } from "@/components/ui/status-badge";
 
 const AVATAR_COLORS = [
   "bg-violet-200 text-violet-700",
